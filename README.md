@@ -4,7 +4,7 @@ scripts to estimate scaling factor for floor plan images **(context: MID program
 ## 1- floor plan detection
 Using the inference script from [TrainYourOwnYOLO](https://github.com/AntonMu/TrainYourOwnYOLO).
 
-Adding an algorithm to optimze floor plan cropping boundaries after their detection.
+Adding an algorithm to optimze floor plan cropping boundaries after their detection. (image_crop_growth + image_crop_optimize() )
 
 (sample images from CVC-FP dataset)
 
