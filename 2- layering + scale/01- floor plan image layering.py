@@ -219,8 +219,8 @@ def save_multipage_tiff(raw_plan, slab_light, walls_slab_light, base_path, suffi
     #tifffile.imsave(save_path,pages)
 
 #file lists
-filelist_close_wall = glob.glob("./plans - test05 (crop raw walls as well)/*_close_wall.png")
-filelist_wall = glob.glob("./plans - test05 (crop raw walls as well)/*_wall.png")
+filelist_close_wall = glob.glob("./1- plans_test (output from floor plan detection)/*_close_wall.png")
+filelist_wall = glob.glob("./1- plans_test (output from floor plan detection)/*_wall.png")
 filelist_wall = [i for i in filelist_wall if i not in filelist_close_wall]
 #filelist_raw_plans = glob.glob("./plans/*.jpg")
 
@@ -239,6 +239,7 @@ if len(filelist_close_wall) == len(filelist_wall): # and len(filelist_close_wall
         
         #raw plan square + save
         raw_plan_path = base_path + ".jpg"
+        print(raw_plan_path)
         raw_plan = cv2.imread(raw_plan_path, cv2.IMREAD_GRAYSCALE)
         raw_plan = crop_and_square(raw_plan, slab_mask, base_path, "_z1_raw_plan", border_width=20, save=True)
         
@@ -253,6 +254,11 @@ if len(filelist_close_wall) == len(filelist_wall): # and len(filelist_close_wall
         
         #save slab mask
         slab_mask_square = crop_and_square(slab_mask, slab_mask, base_path, "_z0_slab_mask", border_width=20, save=True, border_colour=0)
+    
+    #keybindings for preview
+    k = cv2.waitKey(0)
+    if k == 27:         # wait for ESC key to exit
+        cv2.destroyAllWindows()
     
     print ("{} plans successfully processed".format(len(filelist_close_wall)))
 

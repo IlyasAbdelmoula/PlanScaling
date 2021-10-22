@@ -278,16 +278,16 @@ def get_base_path(source_path, suffix_to_remove):
     return path
 
 #file lists
-filelist_close_wall = glob.glob("./plans - test05 (scale)/*_z0_close_wall.png")
-filelist_wall = glob.glob("./plans - test05 (scale)/*_z0_wall.png")
-filelist_raw_plan = glob.glob("./plans - test05 (scale)/*_z1_raw_plan.png")
+filelist_close_wall = glob.glob("./1- plans_test (output from floor plan detection)/*_z0_close_wall.png")
+filelist_wall = glob.glob("./1- plans_test (output from floor plan detection)/*_z0_wall.png")
+filelist_raw_plan = glob.glob("./1- plans_test (output from floor plan detection)/*_z1_raw_plan.png")
 
 #filelist_raw_plans = glob.glob("./plans/*.jpg")
 
 if len(filelist_close_wall) == len(filelist_wall) and len(filelist_close_wall) == len(filelist_raw_plan):
     
     #retrieve door database
-    detection_dict = retrieve_detection_database.load_results("./plans - test05 (scale)/Detection_Results.xlsx")
+    detection_dict = retrieve_detection_database.load_results("./1- plans_test (output from floor plan detection)/Detection_Results.xlsx")
     
     #loop through plans
     for close_wall_path, wall_path, raw_plan_path in zip(filelist_close_wall, 
@@ -348,3 +348,8 @@ if len(filelist_close_wall) == len(filelist_wall) and len(filelist_close_wall) =
         save_image(scale_lines, base_path, "_z0_scale.png")
         save_image(scale_lines_plan, base_path, "_z1_raw_plan_scale.png")
         save_image(bbox_img*255, base_path, "_z0_scale_openings.png") # *255 because all values are between 0-1
+    
+    #keybindings for preview
+    k = cv2.waitKey(0)
+    if k == 27:         # wait for ESC key to exit
+        cv2.destroyAllWindows()
